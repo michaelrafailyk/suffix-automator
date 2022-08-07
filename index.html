@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Suffix Automator</title>
+	<link rel="stylesheet" href="suffixautomator.css">
+	<script src="suffixautomator.js"></script>
+
+</head>
+<body>
+
+	<main>
+		<div>
+			<div class="header">
+				<div class="title"><div id="direction">to</div><span id="suffix" contenteditable="true" spellcheck="false">sc</span></div>
+			</div>
+			<textarea class="characters" id="characters" spellcheck="false" placeholder="character names, separated by line or space"></textarea>
+		</div>
+		<div>
+			<div class="header" id="feature-header">
+				<div class="title">feature</div>
+				<div class="action" id="feature-sort">sort</div>
+				<div class="action" id="feature-class">class</div>
+				<div class="action" id="feature-reverse">reverse</div>
+				<div class="action" id="feature-capital">capitalize</div>
+				<div class="action" id="feature-lowercase">decapitalize</div>
+			</div>
+			<div class="feature-box">
+				<div class="feature" id="feature"></div>
+				<div class="copy" id="copy">copy</div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<a href="https://github.com/rafailyk/suffix-automator" target="_blank">Suffix Automator on GitHub</a>
+	</footer>
+
+</body>
+</html>
