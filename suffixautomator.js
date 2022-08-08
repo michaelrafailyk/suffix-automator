@@ -451,16 +451,18 @@ document.addEventListener('DOMContentLoaded', function() {
 			let data = automator.elem.feature.innerText;
 			navigator.clipboard.writeText(data);
 			// show and hide the "copied" label
-			automator.elem.feature.classList.add('feature-copied-ready');
-			setTimeout(function() {
-				automator.elem.feature.classList.add('feature-copied');
+			if (!automator.elem.feature.classList.contains('feature-copied-ready')) {
+				automator.elem.feature.classList.add('feature-copied-ready');
 				setTimeout(function() {
-					automator.elem.feature.classList.remove('feature-copied');
+					automator.elem.feature.classList.add('feature-copied');
 					setTimeout(function() {
-						automator.elem.feature.classList.remove('feature-copied-ready');
+						automator.elem.feature.classList.remove('feature-copied');
+						setTimeout(function() {
+							automator.elem.feature.classList.remove('feature-copied-ready');
+						}, 1500);
 					}, 1500);
-				}, 1500);
-			}, 40);
+				}, 40);
+			}
 		}
 	};
 
