@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						automator.elem.feature.classList.remove('feature-copied');
 						setTimeout(function() {
 							automator.elem.feature.classList.remove('feature-copied-ready');
-						}, 1500);
+						}, 250);
 					}, 1500);
 				}, 40);
 			}
