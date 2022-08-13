@@ -2,7 +2,8 @@ Suffix Automator helps a type developers to reduce repetitive steps when writing
 
 ## Demo
 
-[Suffix Automator](https://rafailyk.github.io/suffix-automator/)
+[Suffix Automator in action](https://rafailyk.github.io/suffix-automator/)
+[Video with explanation](https://youtu.be/ezTZsHxszL4)
 
 ## Features
 
