@@ -2,7 +2,7 @@ Suffix Automator helps a type developers to reduce repetitive steps when writing
 
 ## Demo
 
-[Suffix Automator in action](https://rafailyk.github.io/suffix-automator/)
+[Suffix Automator in action](https://michaelrafailyk.github.io/suffix-automator/)
 
 [Video with explanation](https://youtu.be/ezTZsHxszL4)
 
@@ -58,4 +58,4 @@ bdot
 
 ## Author and license
 
-**Michael Rafailyk** - [rafailyk](https://github.com/rafailyk) on GitHub. Project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details.
+**Michael Rafailyk** - [michaelrafailyk](https://github.com/michaelrafailyk) on GitHub. Project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details.
