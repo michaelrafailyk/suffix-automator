@@ -345,8 +345,9 @@ document.addEventListener('DOMContentLoaded', function() {
 						// for character with a suffix
 						let char_end = character[character.length-1];
 						let suffix_end = automator.suffix.actual[automator.suffix.actual.length-1];
-						let uni = character.substring(0,3) == 'uni';
 						let firstTwo = character.substring(0,2);
+						let firstThree = character.substring(0,3);
+						let uni = firstThree == 'uni' || firstThree == 'UNI';
 						let doubleLowercase = (firstTwo == 'ae' || firstTwo == 'oe' || firstTwo == 'ij' || firstTwo == 'nj');
 						let doubleUppercase = (firstTwo == 'AE' || firstTwo == 'OE' || firstTwo == 'IJ' || firstTwo == 'NJ');
 						if (character.indexOf('.' + automator.suffix.actual) >= 0 && char_end === suffix_end) {
