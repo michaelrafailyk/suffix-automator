@@ -345,16 +345,28 @@ document.addEventListener('DOMContentLoaded', function() {
 						// for character with a suffix
 						let char_end = character[character.length-1];
 						let suffix_end = automator.suffix.actual[automator.suffix.actual.length-1];
+						let uni = character.substring(0,3) == 'uni';
+						let firstTwo = character.substring(0,2);
+						let doubleLowercase = (firstTwo == 'ae' || firstTwo == 'oe' || firstTwo == 'ij' || firstTwo == 'nj');
+						let doubleUppercase = (firstTwo == 'AE' || firstTwo == 'OE' || firstTwo == 'IJ' || firstTwo == 'NJ');
 						if (character.indexOf('.' + automator.suffix.actual) >= 0 && char_end === suffix_end) {
 							let i = character.lastIndexOf('.' + automator.suffix.actual);
 							converted = character.slice(0, i);
 							character = converted + '<div class="feature-color-suffix">.' + automator.suffix.actual + '</div>';
 							if (converted.length) {
 								// capitalize or decapitalize
-								if (automator.action.capital) {
-									converted = converted.charAt(0).toUpperCase() + converted.slice(1);
-								} else if (automator.action.lowercase) {
-									converted = converted.charAt(0).toLowerCase() + converted.slice(1);
+								if (automator.action.capital && !uni) {
+									if (doubleLowercase) {
+										converted = converted.substring(0,2).toUpperCase() + converted.slice(2);
+									} else {
+										converted = converted.charAt(0).toUpperCase() + converted.slice(1);
+									}
+								} else if (automator.action.lowercase && !uni) {
+									if (doubleUppercase) {
+										converted = converted.substring(0,2).toLowerCase() + converted.slice(2);
+									} else {
+										converted = converted.charAt(0).toLowerCase() + converted.slice(1);
+									}
 								}
 								// line of substitution
 								if (!automator.action.reverse) {
@@ -367,10 +379,18 @@ document.addEventListener('DOMContentLoaded', function() {
 						} else {
 							converted = character + '<div class="feature-color-suffix">.' + automator.suffix.actual + '</div>';
 							// capitalize or decapitalize
-							if (automator.action.capital) {
-								converted = converted.charAt(0).toUpperCase() + converted.slice(1);
-							} else if (automator.action.lowercase) {
-								converted = converted.charAt(0).toLowerCase() + converted.slice(1);
+							if (automator.action.capital && !uni) {
+								if (doubleLowercase) {
+									converted = converted.substring(0,2).toUpperCase() + converted.slice(2);
+								} else {
+									converted = converted.charAt(0).toUpperCase() + converted.slice(1);
+								}
+							} else if (automator.action.lowercase && !uni) {
+								if (doubleUppercase) {
+									converted = converted.substring(0,2).toLowerCase() + converted.slice(2);
+								} else {
+									converted = converted.charAt(0).toLowerCase() + converted.slice(1);
+								}
 							}
 							// line of substitution
 							if (!automator.action.reverse) {
