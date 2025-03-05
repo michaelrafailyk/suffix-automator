@@ -1,10 +1,10 @@
 Suffix Automator helps a type developers to reduce repetitive steps when writing simple OpenType features such as one-to-one substitution. It can be useful for writing a Stylistic Sets, for wrapping characters into classes, for reverse substitution direction, for capitalization or decapitalization a substituted characters, or just for sorting characters.
 
-## Demo
+## Links
 
-[Suffix Automator in action](https://michaelrafailyk.github.io/suffix-automator/)
+Online version: [michaelrafailyk.github.io/suffix-automator](https://michaelrafailyk.github.io/suffix-automator/)
 
-[Video with explanation](https://youtu.be/ezTZsHxszL4)
+Video with explanation: [youtube.com/watch?v=ezTZsHxszL4](https://www.youtube.com/watch?v=ezTZsHxszL4)
 
 ## Features
 
@@ -55,7 +55,3 @@ bdot
 - Capitalize the first letter of substituted characters `sub aring by Aring.sc;` by pressing the **capitalize** button.
 - Decapitalize the first letter of substituted characters `sub Aring by aring.sc;` by pressing the **decapitalize** button. Note: capitalization or decapitalization changes only the substituted characters, leaving the left column unchanged.
 - Copy feature code to clipboard by pressing the **copy** button.
-
-## Author and license
-
-**Michael Rafailyk** - [michaelrafailyk](https://github.com/michaelrafailyk) on GitHub. Project is licensed under the MIT License - see the [LICENSE.md](./LICENSE) file for details.
