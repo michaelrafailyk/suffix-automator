@@ -1,10 +1,14 @@
-Suffix Automator helps a type developers to reduce repetitive steps when writing simple OpenType features such as one-to-one substitution. It can be useful for writing a Stylistic Set feature, for generating Small Caps receipts, for wrapping characters into classes, for reverse substitution direction, for capitalization or decapitalization source and/or substituted characters, or just for sorting characters.
+SuffixAutomator helps a type developers to reduce repetitive steps when writing simple OpenType features such as one-to-one substitution. It can be useful for writing a Stylistic Set feature, for generating Small Caps receipts, for wrapping characters into classes, for reverse substitution direction, for capitalization or decapitalization source and/or substituted characters, or just for sorting characters.
 
 ## Links
 
-Online version: [michaelrafailyk.github.io/suffix-automator](https://michaelrafailyk.github.io/suffix-automator/)
+Online version: [michaelrafailyk.github.io/SuffixAutomator](https://michaelrafailyk.github.io/SuffixAutomator)
 
 Video with explanation: [youtube.com/watch?v=ezTZsHxszL4](https://www.youtube.com/watch?v=ezTZsHxszL4)
+
+## Preview
+
+![SuffixAutomator preview](https://repository-images.githubusercontent.com/522259141/c7962824-adb5-4ae1-ac2e-5f415c5a4f4b)
 
 ## Features
 

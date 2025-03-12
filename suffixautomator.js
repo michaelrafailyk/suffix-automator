@@ -1,9 +1,9 @@
 /*
 
-	Suffix Automator v1.2
+	SuffixAutomator v1.3
 	Licensed under the MIT License
 	Developed by Michael Rafailyk in 2022
-	https://github.com/michaelrafailyk/suffix-automator
+	https://github.com/michaelrafailyk/SuffixAutomator
 
 */
 
