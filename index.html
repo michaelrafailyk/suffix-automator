@@ -17,7 +17,7 @@
 	<meta name="description" content="A tool that helps a type developers to reduce repetitive steps when writing one-to-one substitutions">
 	<meta name="author" content="Michael Rafailyk">
 	<title>Suffix Automator</title>
-	<link rel="stylesheet" href="suffixautomator.css">
+	<link rel="stylesheet" href="suffixautomator.css?v2">
 	<script src="suffixautomator.js?v2"></script>
 
 </head>
@@ -26,18 +26,24 @@
 	<main>
 		<div>
 			<div class="header">
-				<div class="title"><div id="direction">to</div><span id="suffix" contenteditable="true" spellcheck="false">alt</span></div>
+				<div class="title"><div id="direction">to</div><span id="suffix" contenteditable="true" spellcheck="false">sc</span></div>
+				<div class="action" id="feature-sort">sort</div>
 			</div>
-			<textarea class="characters" id="characters" spellcheck="false" placeholder="character names, separated by line or space"></textarea>
+			<textarea class="characters" id="characters" spellcheck="false" placeholder="character names, separated by space or new line"></textarea>
 		</div>
 		<div>
 			<div class="header" id="feature-header">
-				<div class="title">feature</div>
-				<div class="action" id="feature-sort">sort</div>
+				<div class="title title-feature">feature</div>
+				<div class="title title-receipt">receipt</div>
 				<div class="action" id="feature-class">class</div>
+				<div class="action" id="feature-composite">composite</div>
 				<div class="action" id="feature-reverse">reverse</div>
-				<div class="action" id="feature-capital">capitalize</div>
-				<div class="action" id="feature-lowercase">decapitalize</div>
+				<div class="action action-group" id="feature-capitalize">capitalize</div>
+				<div class="action" id="feature-capitalize-from">from</div>
+				<div class="action" id="feature-capitalize-to">to</div>
+				<div class="action action-group" id="feature-decapitalize">decapitalize</div>
+				<div class="action" id="feature-decapitalize-from">from</div>
+				<div class="action" id="feature-decapitalize-to">to</div>
 			</div>
 			<div class="feature-box">
 				<div class="feature" id="feature"></div>

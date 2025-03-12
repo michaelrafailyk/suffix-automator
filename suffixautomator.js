@@ -1,20 +1,36 @@
+/*
+
+	Suffix Automator v1.2
+	Licensed under the MIT License
+	Developed by Michael Rafailyk in 2022
+	https://github.com/michaelrafailyk/suffix-automator
+
+*/
+
 document.addEventListener('DOMContentLoaded', function() {
 
 	let automator = {
+		
+		// elements
 		elem: {
-			// elements
+			main: document.querySelector('main'),
 			characters: document.getElementById('characters'),
 			feature: document.getElementById('feature'),
-			header: document.getElementById('feature-header'),
 			suffix: document.getElementById('suffix'),
 			direction: document.getElementById('direction'),
 			reverse: document.getElementById('feature-reverse'),
 			sort: document.getElementById('feature-sort'),
+			composite: document.getElementById('feature-composite'),
 			classes: document.getElementById('feature-class'),
-			capital: document.getElementById('feature-capital'),
-			lowercase: document.getElementById('feature-lowercase'),
+			capitalize: document.getElementById('feature-capitalize'),
+			capitalize_from: document.getElementById('feature-capitalize-from'),
+			capitalize_to: document.getElementById('feature-capitalize-to'),
+			decapitalize: document.getElementById('feature-decapitalize'),
+			decapitalize_from: document.getElementById('feature-decapitalize-from'),
+			decapitalize_to: document.getElementById('feature-decapitalize-to'),
 			copy: document.getElementById('copy')
 		},
+		
 		init: function() {
 			automator.suffix.original = automator.elem.suffix.textContent;
 			automator.suffix.actual = automator.elem.suffix.textContent;
@@ -26,11 +42,27 @@ document.addEventListener('DOMContentLoaded', function() {
 			automator.elem.characters.addEventListener('input', automator.type);
 			automator.elem.reverse.addEventListener('click', automator.reverse);
 			automator.elem.sort.addEventListener('click', automator.sort);
+			automator.elem.composite.addEventListener('click', automator.composite);
 			automator.elem.classes.addEventListener('click', automator.classes);
-			automator.elem.capital.addEventListener('click', automator.capital);
-			automator.elem.lowercase.addEventListener('click', automator.lowercase);
+			automator.elem.capitalize_from.addEventListener('click', automator.capitalize_from);
+			automator.elem.capitalize_to.addEventListener('click', automator.capitalize_to);
+			automator.elem.decapitalize_from.addEventListener('click', automator.decapitalize_from);
+			automator.elem.decapitalize_to.addEventListener('click', automator.decapitalize_to);
 			automator.elem.copy.addEventListener('click', automator.copy);
 		},
+		
+		// markers for active actions
+		action: {
+			composite: false,
+			classes: false,
+			reverse: false,
+			capitalize_from: false,
+			capitalize_to: false,
+			decapitalize_from: false,
+			decapitalize_to: false
+		},
+		
+		// change or update the suffix
 		suffix: {
 			direction: 'to',
 			original: null,
@@ -79,18 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				automator.type();
 			}
 		},
+		
+		// update the feature while typing
 		type: function() {
 			// show or hide action buttons
 			// generate feature
 			if (automator.elem.characters.value && automator.elem.characters.value !== ' ') {
-				if (!automator.elem.reverse.classList.contains('action-ready')) {
-					automator.elem.header.classList.add('header-ready');
-					automator.elem.reverse.classList.add('action-ready');
-					automator.elem.sort.classList.add('action-ready');
-					automator.elem.classes.classList.add('action-ready');
-					automator.elem.capital.classList.add('action-ready');
-					automator.elem.lowercase.classList.add('action-ready');
-					automator.elem.copy.classList.add('action-ready');
+				if (!automator.elem.main.classList.contains('ready')) {
+					automator.elem.main.classList.add('ready');
 				}
 				// turn on/off reverse if first and last characters have or doesn't have suffix
 				let list = automator.unboxing();
@@ -108,40 +136,42 @@ document.addEventListener('DOMContentLoaded', function() {
 				}
 				automator.generate();
 			} else {
-				automator.elem.header.classList.remove('header-ready');
-				automator.elem.sort.classList.remove('action-ready', 'action-active');
-				automator.elem.classes.classList.remove('action-ready');
-				automator.elem.reverse.classList.remove('action-ready', 'action-active');
-				automator.elem.capital.classList.remove('action-ready', 'action-active');
-				automator.elem.lowercase.classList.remove('action-ready', 'action-active');
-				automator.elem.copy.classList.remove('action-ready');
+				automator.elem.main.classList.remove('ready');
+				automator.elem.main.classList.remove('receipt');
+				automator.elem.sort.classList.remove('action-active');
+				automator.elem.composite.classList.remove('action-active');
+				automator.elem.classes.classList.remove('action-active');
+				automator.elem.reverse.classList.remove('action-active');
+				automator.elem.capitalize_from.classList.remove('action-active');
+				automator.elem.capitalize_to.classList.remove('action-active');
+				automator.elem.decapitalize_from.classList.remove('action-active');
+				automator.elem.decapitalize_to.classList.remove('action-active');
 				automator.elem.direction.textContent = 'to';
 				automator.elem.feature.textContent = '';
+				automator.action.composite = false;
 				automator.action.classes = false;
 				automator.action.reverse = false;
-				automator.action.capital = false;
-				automator.action.lowercase = false;
+				automator.action.capitalize_from = false;
+				automator.action.capitalize_to = false;
+				automator.action.decapitalize_from = false;
+				automator.action.decapitalize_to = false;
 			}
 			automator.autoheight();
 		},
+		
 		// update the height of textarea
 		autoheight: function() {
 			automator.elem.characters.style.height = 200 + 'px';
 			automator.elem.characters.style.height = automator.elem.characters.scrollHeight + 'px';
 		},
-		// markers for active actions
-		action: {
-			classes: false,
-			reverse: false,
-			capital: false,
-			lowercase: false
-		},
+		
 		// read list of characters to array
 		unboxing: function() {
 			let list = automator.elem.characters.value.trim().replace(/\r\n|\s+/g, '\n').split('\n');
 			// remove duplicates
 			return [...new Set(list)];
 		},
+		
 		// sort list of characters alphabetically but logically grouped
 		sort: function() {
 			let list = automator.unboxing();
@@ -227,16 +257,46 @@ document.addEventListener('DOMContentLoaded', function() {
 			automator.autoheight();
 			automator.generate();
 		},
-		// wrap feature substitutions into two classes
-		classes: function() {
-			automator.elem.classes.classList.toggle('action-active');
-			if (!automator.action.classes) {
-				automator.action.classes = true;
+		
+		// show composite receipt instead of feature substitution
+		composite: function() {
+			// toggle composite	
+			if (!automator.action.composite) {
+				automator.action.composite = true;
+				automator.elem.main.classList.add('receipt');
+				automator.elem.composite.classList.add('action-active');
 			} else {
+				automator.action.composite = false;
+				automator.elem.main.classList.remove('receipt');
+				automator.elem.composite.classList.remove('action-active');
+			}
+			// deactivate classes if active
+			if (automator.action.classes) {
 				automator.action.classes = false;
+				automator.elem.classes.classList.remove('action-active');
 			}
 			automator.generate();
 		},
+		
+		// wrap feature substitutions into two classes
+		classes: function() {
+			// toggle classes
+			if (!automator.action.classes) {
+				automator.action.classes = true;
+				automator.elem.classes.classList.add('action-active');
+			} else {
+				automator.action.classes = false;
+				automator.elem.classes.classList.remove('action-active');
+			}
+			// deactivate composite if active
+			if (automator.action.composite) {
+				automator.action.composite = false;
+				automator.elem.main.classList.remove('receipt');
+				automator.elem.composite.classList.remove('action-active');
+			}
+			automator.generate();
+		},
+		
 		// reverse direction of substitution
 		reverse: function() {
 			automator.elem.reverse.classList.toggle('action-active');
@@ -274,6 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			automator.autoheight();
 			automator.generate();
 		},
+		
 		// set the suffix when reverse is active
 		reverse_suffix: function() {
 			if (automator.elem.characters.value && automator.elem.characters.value !== ' ') {
@@ -298,39 +359,72 @@ document.addEventListener('DOMContentLoaded', function() {
 				automator.elem.characters.value = array.join('\n');
 			}
 		},
+		
+		// capitalize source characters with first capital letter
+		capitalize_from: function() {
+			automator.elem.capitalize_from.classList.toggle('action-active');
+			if (!automator.action.capitalize_from) {
+				automator.action.capitalize_from = true;
+			} else {
+				automator.action.capitalize_from = false;
+			}
+			if (automator.action.decapitalize_from) {
+				automator.action.decapitalize_from = false;
+				automator.elem.decapitalize_from.classList.remove('action-active');
+			}
+			automator.generate();
+		},
+		
 		// capitalize substituted characters with first capital letter
-		capital: function() {
-			automator.elem.capital.classList.toggle('action-active');
-			if (!automator.action.capital) {
-				automator.action.capital = true;
+		capitalize_to: function() {
+			automator.elem.capitalize_to.classList.toggle('action-active');
+			if (!automator.action.capitalize_to) {
+				automator.action.capitalize_to = true;
 			} else {
-				automator.action.capital = false;
+				automator.action.capitalize_to = false;
 			}
-			if (automator.action.lowercase) {
-				automator.action.lowercase = false;
-				automator.elem.lowercase.classList.remove('action-active');
+			if (automator.action.decapitalize_to) {
+				automator.action.decapitalize_to = false;
+				automator.elem.decapitalize_to.classList.remove('action-active');
 			}
 			automator.generate();
 		},
+		
+		// decapitalize source characters with first lowercase letter
+		decapitalize_from: function() {
+			automator.elem.decapitalize_from.classList.toggle('action-active');
+			if (!automator.action.decapitalize_from) {
+				automator.action.decapitalize_from = true;
+			} else {
+				automator.action.decapitalize_from = false;
+			}
+			if (automator.action.capitalize_from) {
+				automator.action.capitalize_from = false;
+				automator.elem.capitalize_from.classList.remove('action-active');
+			}
+			automator.generate();
+		},
+		
 		// decapitalize substituted characters with first lowercase letter
-		lowercase: function() {
-			automator.elem.lowercase.classList.toggle('action-active');
-			if (!automator.action.lowercase) {
-				automator.action.lowercase = true;
+		decapitalize_to: function() {
+			automator.elem.decapitalize_to.classList.toggle('action-active');
+			if (!automator.action.decapitalize_to) {
+				automator.action.decapitalize_to = true;
 			} else {
-				automator.action.lowercase = false;
+				automator.action.decapitalize_to = false;
 			}
-			if (automator.action.capital) {
-				automator.action.capital = false;
-				automator.elem.capital.classList.remove('action-active');
+			if (automator.action.capitalize_to) {
+				automator.action.capitalize_to = false;
+				automator.elem.capitalize_to.classList.remove('action-active');
 			}
 			automator.generate();
 		},
+		
 		// generate feature
 		generate: function() {
 			let list = automator.unboxing();
 			let print = '';
-			// feature version without classes (multiline substitution)
+			// multiline substitution
 			if (!automator.action.classes) {
 				for (let i=0; i<list.length; i++) {
 					let line = '';
@@ -355,14 +449,28 @@ document.addEventListener('DOMContentLoaded', function() {
 							converted = character.slice(0, i);
 							character = converted + '<div class="feature-color-suffix">.' + automator.suffix.actual + '</div>';
 							if (converted.length) {
-								// capitalize or decapitalize
-								if (automator.action.capital && !uni) {
+								// capitalize or decapitalize source characters
+								if (automator.action.capitalize_from && !uni) {
+									if (doubleLowercase) {
+										character = character.substring(0,2).toUpperCase() + character.slice(2);
+									} else {
+										character = character.charAt(0).toUpperCase() + character.slice(1);
+									}
+								} else if (automator.action.decapitalize_from && !uni) {
+									if (doubleUppercase) {
+										character = character.substring(0,2).toLowerCase() + character.slice(2);
+									} else {
+										character = character.charAt(0).toLowerCase() + character.slice(1);
+									}
+								}
+								// capitalize or decapitalize substituted characters
+								if (automator.action.capitalize_to && !uni) {
 									if (doubleLowercase) {
 										converted = converted.substring(0,2).toUpperCase() + converted.slice(2);
 									} else {
 										converted = converted.charAt(0).toUpperCase() + converted.slice(1);
 									}
-								} else if (automator.action.lowercase && !uni) {
+								} else if (automator.action.decapitalize_to && !uni) {
 									if (doubleUppercase) {
 										converted = converted.substring(0,2).toLowerCase() + converted.slice(2);
 									} else {
@@ -379,14 +487,28 @@ document.addEventListener('DOMContentLoaded', function() {
 						// for character without a suffix
 						} else {
 							converted = character + '<div class="feature-color-suffix">.' + automator.suffix.actual + '</div>';
-							// capitalize or decapitalize
-							if (automator.action.capital && !uni) {
+							// capitalize or decapitalize source characters
+							if (automator.action.capitalize_from && !uni) {
+								if (doubleLowercase) {
+									character = character.substring(0,2).toUpperCase() + character.slice(2);
+								} else {
+									character = character.charAt(0).toUpperCase() + character.slice(1);
+								}
+							} else if (automator.action.decapitalize_from && !uni) {
+								if (doubleUppercase) {
+									character = character.substring(0,2).toLowerCase() + character.slice(2);
+								} else {
+									character = character.charAt(0).toLowerCase() + character.slice(1);
+								}
+							}
+							// capitalize or decapitalize substituted characters
+							if (automator.action.capitalize_to && !uni) {
 								if (doubleLowercase) {
 									converted = converted.substring(0,2).toUpperCase() + converted.slice(2);
 								} else {
 									converted = converted.charAt(0).toUpperCase() + converted.slice(1);
 								}
-							} else if (automator.action.lowercase && !uni) {
+							} else if (automator.action.decapitalize_to && !uni) {
 								if (doubleUppercase) {
 									converted = converted.substring(0,2).toLowerCase() + converted.slice(2);
 								} else {
@@ -403,8 +525,12 @@ document.addEventListener('DOMContentLoaded', function() {
 					}
 					// prepare for html syntax highlight
 					if (line.length) {
-						line = line.replace('  ', '&nbsp;&nbsp;');
-						line = line.replace('sub', '<div class="feature-color">sub</div>').replace('by', '<div class="feature-color">by</div>');
+						if (automator.action.composite) {
+							line = line.replace('  sub ', '').replace(' by ', '<div class="feature-color">=</div>').replace(';', '');
+						} else {
+							line = line.replace('  ', '&nbsp;&nbsp;');
+							line = line.replace('sub', '<div class="feature-color">sub</div>').replace('by', '<div class="feature-color">by</div>');
+						}
 						// add the line to a feature code
 						print += line;
 						if (i < list.length-1) {
@@ -412,8 +538,9 @@ document.addEventListener('DOMContentLoaded', function() {
 						}
 					}
 				}
-			// feature version with a classes wrapping
-			} else {
+			}
+			// substitution with classes
+			else if (automator.action.classes) {
 				let class1 = '';
 				let class2 = '';
 				for (let i=0; i<list.length; i++) {
@@ -433,10 +560,16 @@ document.addEventListener('DOMContentLoaded', function() {
 							character = converted;
 							converted = character_temp;
 						}
-						// capitalize or decapitalize
-						if (automator.action.capital) {
+						// capitalize or decapitalize source characters
+						if (automator.action.capitalize_from) {
+							character = character.charAt(0).toUpperCase() + character.slice(1);
+						} else if (automator.action.decapitalize_from) {
+							character = character.charAt(0).toLowerCase() + character.slice(1);
+						}
+						// capitalize or decapitalize substituted characters
+						if (automator.action.capitalize_to) {
 							converted = converted.charAt(0).toUpperCase() + converted.slice(1);
-						} else if (automator.action.lowercase) {
+						} else if (automator.action.decapitalize_to) {
 							converted = converted.charAt(0).toLowerCase() + converted.slice(1);
 						}
 						class1 += character;
@@ -465,6 +598,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// update the feature field
 			automator.elem.feature.innerHTML = print;
 		},
+		
 		// copy feature code to the clipboard
 		copy: function() {
 			let selection = window.getSelection();
@@ -485,6 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				}, 40);
 			}
 		}
+		
 	};
 
 	automator.init();

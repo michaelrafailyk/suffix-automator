@@ -1,4 +1,4 @@
-Suffix Automator helps a type developers to reduce repetitive steps when writing simple OpenType features such as one-to-one substitution. It can be useful for writing a Stylistic Sets, for wrapping characters into classes, for reverse substitution direction, for capitalization or decapitalization a substituted characters, or just for sorting characters.
+Suffix Automator helps a type developers to reduce repetitive steps when writing simple OpenType features such as one-to-one substitution. It can be useful for writing a Stylistic Set feature, for generating Small Caps receipts, for wrapping characters into classes, for reverse substitution direction, for capitalization or decapitalization source and/or substituted characters, or just for sorting characters.
 
 ## Links
 
@@ -8,8 +8,13 @@ Video with explanation: [youtube.com/watch?v=ezTZsHxszL4](https://www.youtube.co
 
 ## Features
 
-- Set the suffix you need such as `.alt` `.dnom` `.loclBGR` by typing it in the **suffix** field.
-- Get a substitution syntax from characters such as `a b c one two` (separated by space or by line):
+- Enter a list of characters (separated by space or new line) in the left text field.
+```
+a b c one two
+```
+
+- Set the suffix such as `.alt` `.sc` `.loclBGR` by typing it in the **suffix** field.
+- Get a feature substitution syntax:
 ```
   sub a by a.sc;
   sub b by b.sc;
@@ -22,6 +27,14 @@ Video with explanation: [youtube.com/watch?v=ezTZsHxszL4](https://www.youtube.co
   @class1 = [a b c one two];
   @class2 = [a.sc b.sc c.sc one.sc two.sc];
   sub @class1 by @class2;
+```
+- Get a receipts for generating composites by pressing the **composite** button:
+```
+a=a.sc
+b=b.sc
+c=c.sc
+one=one.sc
+two=two.sc
 ```
 - Reverse substitution direction (from suffix to character) by pressing the **reverse** button:
 ```
@@ -52,6 +65,20 @@ Bdot
 aring
 bdot
 ```
-- Capitalize the first letter of substituted characters `sub aring by Aring.sc;` by pressing the **capitalize** button.
-- Decapitalize the first letter of substituted characters `sub Aring by aring.sc;` by pressing the **decapitalize** button. Note: capitalization or decapitalization changes only the substituted characters, leaving the left column unchanged.
+- Capitalize the first letter of source characters by pressing the **capitalize from** button.
+```
+sub A by a.sc;
+```
+- Capitalize the first letter of substituted characters by pressing the **capitalize to** button.
+```
+sub a by A.sc;
+```
+- Decapitalize the first letter of source characters by pressing the **decapitalize from** button.
+```
+sub a by A.sc;
+```
+- Decapitalize the first letter of substituted characters by pressing the **decapitalize to** button.
+```
+sub A by a.sc;
+```
 - Copy feature code to clipboard by pressing the **copy** button.

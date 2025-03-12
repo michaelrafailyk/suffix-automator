@@ -77,8 +77,9 @@ main > div:last-of-type {
 	-webkit-align-items: left;
 	align-items: left;
 	width: 100%;
-	height: 25px;
-	margin: 0 0 20px 0;
+	height: auto;
+	min-height: 25px;
+	margin: 0 0 15px 0;
 }
 .title {
 	display: inline-block;
@@ -87,6 +88,15 @@ main > div:last-of-type {
 	font-size: 20px;
 	line-height: 25px;
 	cursor: default;
+}
+.title-receipt {
+	display: none;
+}
+.receipt .title-feature {
+	display: none;
+}
+.receipt .title-receipt {
+	display: inline-block;
 }
 #direction {
 	display: inline-block;
@@ -105,6 +115,8 @@ main > div:last-of-type {
 	user-select: text;
 	outline: 0px solid transparent;
 	cursor: text;
+	-webkit-transition: margin-right .15s;
+	transition: margin-right .15s;
 }
 #suffix::before {
 	content: ".";
@@ -122,6 +134,10 @@ main > div:last-of-type {
 	-webkit-transition: width .15s, top .15s, height .15s;
 	transition: width .15s, top .15s, height .15s;
 }
+#suffix:hover,
+#suffix:focus {
+	margin-right: 5px;
+}
 #suffix:hover::after,
 #suffix:focus::after {
 	width: calc(100% + 5px);
@@ -133,6 +149,7 @@ main > div:last-of-type {
 	position: relative;
 	padding: 7px 11px;
 	margin-left: 5px;
+	margin-bottom: 5px;
 	border-radius: 5px;
 	font-size: 12px;
 	line-height: 1em;
@@ -144,11 +161,11 @@ main > div:last-of-type {
 	transition: opacity .15s, background .15s, color .15s;
 	opacity: 0;
 }
-.action-ready {
+.ready .action {
 	cursor: pointer;
 	opacity: 1;
 }
-.action-ready:hover {
+.ready .action:hover {
 	background: #1d1d1f;
 	color: white;
 	opacity: .8;
@@ -159,6 +176,17 @@ main > div:last-of-type {
 	opacity: 1;
 }
 .action-active:hover {
+	opacity: 1;
+}
+.action-group,
+.action-group:hover,
+.ready .action-group:hover {
+	background: transparent;
+	color: #7d7d7f;
+	padding-right: 0;
+	cursor: default;
+}
+.ready .action-group:hover {
 	opacity: 1;
 }
 .characters {
@@ -282,11 +310,11 @@ main > div:last-of-type {
 	right: -10px;
 	bottom: -10px;
 }
-.copy.action-ready {
+.ready .copy {
 	cursor: pointer;
 	opacity: 1;
 }
-.copy.action-ready:hover {
+.ready .copy:hover {
 	background: #1d1d1f;
 	color: white;
 	opacity: .8;
@@ -313,7 +341,7 @@ footer {
 		width: 100%;
 	}
 }
-@media (max-width: 860px) {
+@media (max-width: 1050px) {
 	html, body {
 		height: auto;
 	}
@@ -338,9 +366,6 @@ footer {
 	}
 }
 @media (max-width: 420px) {
-	.header-ready {
-		height: auto;
-	}
 	.title {
 		display: block;
 		-webkit-flex-basis: 100%;
