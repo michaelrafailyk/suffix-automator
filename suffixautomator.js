@@ -1,6 +1,6 @@
 /*
 
-	SuffixAutomator v1.3
+	SuffixAutomator v1.4
 	Licensed under the MIT License
 	Developed by Michael Rafailyk in 2022
 	https://github.com/michaelrafailyk/SuffixAutomator
@@ -479,9 +479,9 @@ document.addEventListener('DOMContentLoaded', function() {
 								}
 								// line of substitution
 								if (!automator.action.reverse) {
-									line = '  sub ' + converted + ' by ' + character + ';';
+									line = 'sub ' + converted + ' by ' + character + ';';
 								} else {
-									line = '  sub ' + character + ' by ' + converted + ';';
+									line = 'sub ' + character + ' by ' + converted + ';';
 								}
 							}
 						// for character without a suffix
@@ -517,18 +517,17 @@ document.addEventListener('DOMContentLoaded', function() {
 							}
 							// line of substitution
 							if (!automator.action.reverse) {
-								line = '  sub ' + character + ' by ' + converted + ';';
+								line = 'sub ' + character + ' by ' + converted + ';';
 							} else {
-								line = '  sub ' + converted + ' by ' + character + ';';
+								line = 'sub ' + converted + ' by ' + character + ';';
 							}
 						}
 					}
 					// prepare for html syntax highlight
 					if (line.length) {
 						if (automator.action.composite) {
-							line = line.replace('  sub ', '').replace(' by ', '<div class="feature-color">=</div>').replace(';', '');
+							line = line.replace('sub ', '').replace(' by ', '<div class="feature-color">=</div>').replace(';', '');
 						} else {
-							line = line.replace('  ', '&nbsp;&nbsp;');
 							line = line.replace('sub', '<div class="feature-color">sub</div>').replace('by', '<div class="feature-color">by</div>');
 						}
 						// add the line to a feature code
@@ -589,9 +588,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					name2 = name_temp;
 				}
 				// prepare for html syntax highlight
-				let line1 = '&nbsp;&nbsp;@' + name1 + ' = [' + class1 + '];';
-				let line2 = '&nbsp;&nbsp;@' + name2 + ' = [' + class2 + '];';
-				let line3 = '&nbsp;&nbsp;<div class="feature-color">sub</div> @' + name1 + ' <div class="feature-color">by</div> @' + name2 + ';';
+				let line1 = '@' + name1 + ' = [' + class1 + '];';
+				let line2 = '@' + name2 + ' = [' + class2 + '];';
+				let line3 = '<div class="feature-color">sub</div> @' + name1 + ' <div class="feature-color">by</div> @' + name2 + ';';
 				// merge the result to a feature code
 				print = line1 + '<br>' + line2 + '<br><br>' + line3;
 			}
